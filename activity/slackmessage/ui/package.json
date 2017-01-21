@@ -1,0 +1,5 @@
+{
+  "name": "sendSlackMessage",
+  "version": "0.0.1",
+  "description": "This activity sends a message to a Slack channel"
+}
