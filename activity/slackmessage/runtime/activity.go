@@ -3,13 +3,11 @@ package sendWSMessage
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"github.com/TIBCOSoftware/flogo-lib/flow/activity"
 	"github.com/op/go-logging"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"os"
 	"strconv"
 )
 
@@ -50,34 +48,33 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 	iconEmoji := context.GetInput("Iconemoji").(string)
 
 	payload := &Payload{}
-	if channelName != nil && len(channelName) > 0 {
+	if len(channelName) > 0 {
 		payload.Channel = channelName
 	}
 
-	if message != nil && len(message) > 0 {
-		payload.Message = message
-	}
-
-	if user != nil && len(user) > 0 {
+	if len(user) > 0 {
 		payload.Username = user
 	}
 
-	if iconEmoji != nil && len(iconEmoji) > 0 {
+	if len(iconEmoji) > 0 {
 		payload.Iconemoji = iconEmoji
 	}
 
-	b, _ := json.Marshal(payload)
-	data := url.Values{}
-	data.Set("payload", string(b))
-	req, _ := http.NewRequest("POST", webHookUrl, bytes.NewBufferString(data.Encode()))
-	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Add("Content-Length", strconv.Itoa(len(data.Encode())))
+	if len(message) > 0 {
+		payload.Message = message
+		b, _ := json.Marshal(payload)
+		data := url.Values{}
+		data.Set("payload", string(b))
+		req, _ := http.NewRequest("POST", webHookUrl, bytes.NewBufferString(data.Encode()))
+		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+		req.Header.Add("Content-Length", strconv.Itoa(len(data.Encode())))
 
-	client := &http.Client{}
-	resp, _ := client.Do(req)
+		client := &http.Client{}
+		resp, _ := client.Do(req)
 
-	body, _ := ioutil.ReadAll(resp.Body)
-	context.SetOutput("result", string(body))
+		body, _ := ioutil.ReadAll(resp.Body)
+		context.SetOutput("result", string(body))
+	}
 
 	return true, nil
 }
