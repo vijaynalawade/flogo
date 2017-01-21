@@ -1,6 +1,6 @@
 ![gofmt status](https://img.shields.io/badge/gofmt-compliant-green.svg?style=flat-square) ![golint status](https://img.shields.io/badge/golint-compliant-green.svg?style=flat-square) ![automated test coverage](https://img.shields.io/badge/test%20coverage-1%20testcase-orange.svg?style=flat-square)
 
-# sendSlackMessage
+# Send Slack Message
 This activity sends a message to a Slack channel.
 
 ## Installation
