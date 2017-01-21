@@ -47,6 +47,10 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 	user := context.GetInput("Username").(string)
 	iconEmoji := context.GetInput("Iconemoji").(string)
 
+	if len(webHookUrl) == 0 {
+		panic("WebHook URL must be configured.")
+	}
+
 	payload := &Payload{}
 	if len(channelName) > 0 {
 		payload.Channel = channelName
@@ -60,21 +64,23 @@ func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 		payload.Iconemoji = iconEmoji
 	}
 
-	if len(message) > 0 {
-		payload.Message = message
-		b, _ := json.Marshal(payload)
-		data := url.Values{}
-		data.Set("payload", string(b))
-		req, _ := http.NewRequest("POST", webHookUrl, bytes.NewBufferString(data.Encode()))
-		req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-		req.Header.Add("Content-Length", strconv.Itoa(len(data.Encode())))
-
-		client := &http.Client{}
-		resp, _ := client.Do(req)
-
-		body, _ := ioutil.ReadAll(resp.Body)
-		context.SetOutput("result", string(body))
+	if len(message) == 0 {
+		panic("Message must be configured.")
 	}
+	
+	payload.Message = message
+	b, _ := json.Marshal(payload)
+	data := url.Values{}
+	data.Set("payload", string(b))
+	req, _ := http.NewRequest("POST", webHookUrl, bytes.NewBufferString(data.Encode()))
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Add("Content-Length", strconv.Itoa(len(data.Encode())))
+
+	client := &http.Client{}
+	resp, _ := client.Do(req)
+
+	body, _ := ioutil.ReadAll(resp.Body)
+	context.SetOutput("result", string(body))
 
 	return true, nil
 }
