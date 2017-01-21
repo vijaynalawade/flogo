@@ -17,19 +17,29 @@ Inputs and Outputs:
 {
 "inputs":[
     {
-      "name": "Token",
+      "name": "Webhook",
       "type": "string",
-      "value": ""
+      "required": true
     },
     {
       "name": "Channel",
       "type": "string",
-      "value": ""
+      "required": false
     },
     {
       "name": "Message",
       "type": "string",
-      "value": ""
+      "required": true
+    },
+    {
+      "name": "Username",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "Iconemoji",
+      "type": "string",
+      "required": false
     }
   ],
   "outputs": [
