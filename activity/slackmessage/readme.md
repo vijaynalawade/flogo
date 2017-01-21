@@ -60,7 +60,7 @@ Inputs and Outputs:
 | Iconemoji   | The icon emoji to send |
 
 ## Configuration Examples
-The below configuration would connect to a WebSocket server based on TIBCO eFTL and send a message saying `Hello World`
+The below configuration would connect to a Slack and send a message saying `Hello World`
 ```json
       {
         "id": 2,
