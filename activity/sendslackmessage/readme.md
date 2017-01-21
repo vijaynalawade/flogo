@@ -6,7 +6,7 @@ This activity sends a message to a Slack channel.
 ## Installation
 
 ```bash
-flogo add activity github.com/vijaynalawade/flogo/activity/slackmessage
+flogo add activity github.com/vijaynalawade/flogo/activity/sendslackmessage
 ```
 
 ## Schema
