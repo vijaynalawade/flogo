@@ -43,7 +43,7 @@ Inputs and Outputs:
   ],
   "outputs": [
     {
-      "name": "output",
+      "name": "result",
       "type": "string"
     }
   ]
