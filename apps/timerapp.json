@@ -1,0 +1,76 @@
+{  
+   "name":"TimerApp",
+   "version":"0.0.1",
+   "type":"flogo",
+   "description":"My flogo application description",
+   "triggers":[  
+      {  
+         "id":"my_timer_trigger",
+         "ref":"github.com/TIBCOSoftware/flogo-contrib/incubator/timer/runtime",
+         "data":{  
+            "settings":{ 
+            },
+            "endpoints":[  
+               {  
+                  "actionId":"my_simple_flow",
+                  "settings":{  
+                     "repeating":"true",
+                     "seconds":"10",
+                     "notImmediate":"false"
+                  }
+               }
+            ]
+         }
+      }
+   ],
+   "actions":[  
+      {  
+         "id":"my_simple_flow",
+         "ref":"github.com/TIBCOSoftware/flogo-contrib/incubator/flow",
+         "data":{  
+            "attributes":[  
+
+            ],
+            "model":"tibco-simple",
+            "ref":"github.com/TIBCOSoftware/flogo-contrib/model/simple",
+            "name":"flow",
+            "rootTask":{  
+               "activityType":"",
+               "id":1,
+               "links":[  
+
+               ],
+               "name":"root",
+               "tasks":[  
+                  {  
+                     "activityType":"tibco-log",
+                     "ref":"github.com/TIBCOSoftware/flogo-contrib/activity/log/runtime",
+                     "attributes":[  
+                        {  
+                           "name":"message",
+                           "type":"string",
+                           "value":"Received timer event"
+                        },
+                        {  
+                           "name":"flowInfo",
+                           "type":"boolean",
+                           "value":"true"
+                        },
+                        {  
+                           "name":"addToFlow",
+                           "type":"boolean",
+                           "value":"true"
+                        }
+                     ],
+                     "id":2,
+                     "name":"Log Activity",
+                     "type":1
+                  }
+               ],
+               "type":1
+            },
+            "type":1
+         }
+      }
+   ]
+}
