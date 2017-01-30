@@ -22,7 +22,7 @@
    "actions":[  
       {  
          "id":"my_simple_flow",
-         "ref":"github.com/TIBCOSoftware/flogo-contrib/incubator/flow",
+         "ref":"github.com/TIBCOSoftware/flogo-contrib/action/flow",
          "data":{ 
             "flow": {
             "attributes":[  
