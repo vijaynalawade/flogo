@@ -28,7 +28,8 @@
             "attributes":[  
 
             ],
-           
+            "model":"tibco-simple",
+            "ref":"github.com/TIBCOSoftware/flogo-contrib/model/simple",
             "rootTask":{  
                "activityType":"",
                "id":1,
