@@ -7,10 +7,7 @@
       {  
          "id":"my_timer_trigger",
          "ref":"github.com/TIBCOSoftware/flogo-contrib/incubator/timer/runtime",
-         "data":{  
-            "settings":{ 
-            },
-            "endpoints":[  
+          "handlers":[  
                {  
                   "actionId":"my_simple_flow",
                   "settings":{  
@@ -19,8 +16,7 @@
                      "notImmediate":"false"
                   }
                }
-            ]
-         }
+             ]
       }
    ],
    "actions":[  
