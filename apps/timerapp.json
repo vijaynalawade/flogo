@@ -23,13 +23,12 @@
       {  
          "id":"my_simple_flow",
          "ref":"github.com/TIBCOSoftware/flogo-contrib/incubator/flow",
-         "data":{  
+         "data":{ 
+            "flow": {
             "attributes":[  
 
             ],
-            "model":"tibco-simple",
-            "ref":"github.com/TIBCOSoftware/flogo-contrib/model/simple",
-            "name":"flow",
+           
             "rootTask":{  
                "activityType":"",
                "id":1,
@@ -66,6 +65,7 @@
                "type":1
             },
             "type":1
+         }
          }
       }
    ]
