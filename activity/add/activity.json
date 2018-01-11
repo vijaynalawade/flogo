@@ -1,0 +1,25 @@
+{
+  "name": "vijay-add",
+  "type": "flogo:activity",
+  "ref": "github.com/vijaynalawade/flogo/activity/add",
+  "version": "0.0.1",
+  "title": "Add Numbers",
+  "description": "Simple Add Activity",
+  "homepage": "https://github.com/TIBCOSoftware/flogo-contrib/tree/master/activity/log",
+  "inputs":[
+    {
+      "name": "number1",
+      "type": "integer"
+    },
+    {
+      "name": "number2",
+      "type": "integer"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "sum",
+      "type": "integer"
+    }
+  ]
+}
