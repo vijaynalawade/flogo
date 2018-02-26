@@ -13,6 +13,7 @@ var activityLog = logger.GetLogger("activity-vijay-js")
 const (
 	ivInputVars = "inputVars"
 	ivJs        = "javascript"
+	ivOutputVars = "outputVars"
 	ovOutput    = "output"
 )
 
@@ -51,18 +52,17 @@ func (a *JSActivity) Eval(context activity.Context) (done bool, err error) {
 		return false, activity.NewError(fmt.Sprintf("Failed to execute JavaScript code due to error: %s", err.Error()), "", nil)
 	}
 
-	outputVars, ok := context.GetOutput(ovOutput).(map[string]interface{})
-	if ok {
+	outputVars, ok := context.GetInput(ivOutputVars).(map[string]interface{})
+	if ok && len(outputVars) > 0 {
 		//Specific variables
 		result := make(map[string]interface{}, len(outputVars))
 		for k := range outputVars {
 			value, err := vm.Get(k)
-			if err != nil {
+			if err != nil || value.IsUndefined() {
 				return false, activity.NewError(fmt.Sprintf("Variable:%s is not set in the java script", k), "", nil)
 			}
 			goVal, _ := value.Export()
 			result[k] = goVal
-
 		}
 		context.SetOutput(ovOutput, result)
 	} else {

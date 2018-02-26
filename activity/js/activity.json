@@ -12,6 +12,10 @@
       "type": "object"
     },
     {
+      "name": "outputVars",
+      "type": "object"
+    },
+    {
       "name": "javascript",
       "type": "string",
       "required": true
