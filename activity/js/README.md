@@ -40,7 +40,7 @@ Inputs and Outputs:
 
 ## Configuration Examples
 ### Simple
-Configure a task to log a message 'test message':
+Configure a task that adds two numbers in java script code:
 
 ```json
 {
