@@ -8,12 +8,8 @@
   "homepage": "https://github.com/vijaynalawade/flogo/tree/master/activity/js",
   "inputs":[
     {
-      "name": "inputVars",
-      "type": "object"
-    },
-    {
-      "name": "outputVars",
-      "type": "string"
+      "name": "jsInput",
+      "type": "any"
     },
     {
       "name": "javascript",
@@ -23,7 +19,7 @@
   ],
   "outputs": [
     {
-      "name": "output",
+      "name": "jsOutput",
       "type": "any"
     }
   ]

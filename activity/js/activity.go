@@ -6,16 +6,14 @@ import (
 	"github.com/TIBCOSoftware/flogo-lib/core/activity"
 	"github.com/TIBCOSoftware/flogo-lib/logger"
 	"github.com/robertkrimen/otto"
-	"strings"
 )
 
 var activityLog = logger.GetLogger("activity-vijay-js")
 
 const (
-	ivInputVars = "inputVars"
+	ivInputVars = "jsInput"
 	ivJs        = "javascript"
-	ivOutputVars = "outputVars"
-	ovOutput    = "output"
+	ovOutput    = "jsOutput"
 )
 
 type JSActivity struct {
@@ -35,42 +33,34 @@ func (a *JSActivity) Metadata() *activity.Metadata {
 // Eval implements api.Activity.Eval - Execute JS code
 func (a *JSActivity) Eval(context activity.Context) (done bool, err error) {
 
-	inputVars, _ := context.GetInput(ivInputVars).(map[string]interface{})
+	inputVars, _ := context.GetInput(ivInputVars).(interface{})
 	jsCode, _ := context.GetInput(ivJs).(string)
 
-	activityLog.Debugf("Input Variables: %v", inputVars)
+	activityLog.Debugf("JavaScript Input: %v", inputVars)
 	activityLog.Debugf("JavaScript Code: %s", jsCode)
 
 	vm := otto.New()
 
-	//Set Input Variables
-	for k, v := range inputVars {
-		vm.Set(k, v)
-	}
+	//Set Input Variable
+	vm.Set(ivInputVars, inputVars)
 
 	v, err := vm.Run(jsCode)
 	if err != nil {
 		return false, activity.NewError(fmt.Sprintf("Failed to execute JavaScript code due to error: %s", err.Error()), "", nil)
 	}
 
-	outputVars, ok := context.GetInput(ivOutputVars).(string)
-	if ok && len(outputVars) > 0 {
-		//Specific variables
-		result := make(map[string]interface{}, len(outputVars))
-		for _, v := range strings.Split(outputVars, ",") {
-			value, err := vm.Get(v)
-			if err != nil || value.IsUndefined() {
-				return false, activity.NewError(fmt.Sprintf("Variable:%s is not set in the java script", v), "", nil)
-			}
-			goVal, _ := value.Export()
-			result[v] = goVal
-		}
-		context.SetOutput(ovOutput, result)
+	var jsOutput interface{}
+	// Look for jsOutput variable value
+	value, err := vm.Get(ovOutput)
+	if value.IsNull() || value.IsUndefined() {
+		// Set returned value
+		jsOutput, _ = v.Export()
 	} else {
-		output, _ := v.Export()
-		context.SetOutput(ovOutput, output)
+		// Set jsOutput variable value
+		jsOutput, _ = value.Export()
 	}
+	context.SetOutput(ovOutput, jsOutput)
 
-	activityLog.Debugf("Output: %v", context.GetOutput(ovOutput))
+	activityLog.Debugf("JavaScript Output: %v", jsOutput)
 	return true, nil
 }

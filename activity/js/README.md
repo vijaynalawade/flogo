@@ -14,12 +14,8 @@ Inputs and Outputs:
 ```json
 "inputs":[
     {
-      "name": "inputVars",
-      "type": "object"
-    },
-    {
-          "name": "outputVars",
-          "type": "string"
+      "name": "jsInput",
+      "type": "any"
     },
     {
       "name": "javascript",
@@ -37,8 +33,7 @@ Inputs and Outputs:
 ## Settings
 | Setting   | Description    |
 |:----------|:---------------|
-| inputVars   | Set of variables defined in JSON object that you want to input to your java script code |
-| outputVars   | Comma separated list of variables that you want to output from your java script code |
+| jsInput   | Input to your java script code. It can be primitive or JSON object type. |
 | javascript  | Javascript code|
 
 
@@ -54,9 +49,8 @@ Configure a task that adds two numbers in java script code:
   "ref": "github.com/vijaynalawade/flogo/activity/js",
   "name": "JavaScript Activity",
   "attributes": [
-    { "name": "inputVars", "value": "{\"number1\":2,\"number2\":30}" },
-    { "name": "outputVars", "value": "sum" }
-    { "name": "javascript", "value": "sum = number1 + number2;" };
+    { "name": "jsInput", "value": "{\"number1\":2,\"number2\":3}" },
+    { "name": "javascript", "value": "jsInput.number1 + jsInput.number2;" };
   ]
 }
 ```

@@ -47,7 +47,7 @@ func TestEval_InputVars(t *testing.T) {
 	inputVar["n1"] = 2
 	inputVar["n2"] = 3
 	tc.SetInput(ivInputVars, inputVar)
-	tc.SetInput(ivJs, `n1 + n2`)
+	tc.SetInput(ivJs, `jsInput.n1 + jsInput.n2`)
 	ok, err := act.Eval(tc)
 	assert.NoError(t, err)
 
@@ -56,23 +56,6 @@ func TestEval_InputVars(t *testing.T) {
 		assert.Equal(t, 5, sum)
 	}
 
-}
-
-func TestEval_Console(t *testing.T) {
-
-	act := NewActivity(getActivityMetadata())
-	tc := test.NewTestActivityContext(getActivityMetadata())
-
-	//setup attrs
-	inputVar := make(map[string]interface{}, 2)
-	inputVar["n1"] = 2
-	inputVar["n2"] = 3
-	tc.SetInput(ivInputVars, inputVar)
-
-	//Set JS
-	tc.SetInput(ivJs, `abc = n1 + n2; console.log("Sum is " + abc); // 5`)
-	_, err := act.Eval(tc)
-	assert.NoError(t, err)
 }
 
 func TestEval_OutputVars(t *testing.T) {
@@ -87,11 +70,7 @@ func TestEval_OutputVars(t *testing.T) {
 	tc.SetInput(ivInputVars, inputVar)
 
 	//Set JS code
-	tc.SetInput(ivJs, `sum = n1 + n2; result = "Sum is " + sum;`)
-
-	//Set expected output variable
-	outputVars := "sum,result"
-	tc.SetInput(ivOutputVars, outputVars)
+	tc.SetInput(ivJs, `var jsOutput = {}; jsOutput["sum"] = jsInput.n1 + jsInput.n2; jsOutput["result"] = "Sum is " + jsOutput["sum"];`)
 
 	success, err := act.Eval(tc)
 	assert.NoError(t, err)
@@ -106,27 +85,4 @@ func TestEval_OutputVars(t *testing.T) {
 		result, _ := data.CoerceToString(output["result"])
 		assert.Equal(t, "Sum is 5", result)
 	}
-}
-
-func TestEval_OutputVars_NotSet(t *testing.T) {
-
-	act := NewActivity(getActivityMetadata())
-	tc := test.NewTestActivityContext(getActivityMetadata())
-
-	// Set input variables
-	inputVar := make(map[string]interface{}, 2)
-	inputVar["n1"] = 2
-	inputVar["n2"] = 3
-	tc.SetInput(ivInputVars, inputVar)
-
-	// Set expected output variables
-	outputVars := "sum,result"
-	tc.SetInput(ivOutputVars, outputVars)
-
-	// Set JS code
-	// Set result1 instead of result
-	tc.SetInput(ivJs, `sum = n1 + n2; result1 = "Sum is " + sum;`)
-
-	_, err := act.Eval(tc)
-	assert.Error(t, err)
 }
