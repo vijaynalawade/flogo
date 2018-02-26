@@ -55,8 +55,8 @@ Configure a task that adds two numbers in java script code:
   "name": "JavaScript Activity",
   "attributes": [
     { "name": "inputVars", "value": "{\"number1\":2,\"number2\":30}" },
-    { "name": "outputVars", "value": "sum" }
-    { "name": "javascript", "value": "sum = number1 + number2;" };
+    { "name": "outputVars", "value": "sum" },
+    { "name": "javascript", "value": "sum = number1 + number2;" }
   ]
 }
 ```
