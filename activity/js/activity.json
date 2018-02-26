@@ -12,7 +12,7 @@
       "type": "any"
     },
     {
-      "name": "javascript",
+      "name": "jsCode",
       "type": "string",
       "required": true
     }

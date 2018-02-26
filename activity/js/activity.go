@@ -12,7 +12,7 @@ var activityLog = logger.GetLogger("activity-vijay-js")
 
 const (
 	ivInputVars = "jsInput"
-	ivJs        = "javascript"
+	ivJs        = "jsCode"
 	ovOutput    = "jsOutput"
 )
 
