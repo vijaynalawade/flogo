@@ -18,6 +18,10 @@ Inputs and Outputs:
       "type": "object"
     },
     {
+          "name": "outputVars",
+          "type": "string"
+    },
+    {
       "name": "javascript",
       "type": "string",
       "required": true
@@ -33,7 +37,8 @@ Inputs and Outputs:
 ## Settings
 | Setting   | Description    |
 |:----------|:---------------|
-| inputVars   | Set of dynamic variables that you want to pass to your java script code |
+| inputVars   | Set of variables defined in JSON object that you want to input to your java script code |
+| outputVars   | Comma separated list of variables that you want to output from your java script code |
 | javascript  | Javascript code|
 
 
@@ -50,7 +55,8 @@ Configure a task that adds two numbers in java script code:
   "name": "JavaScript Activity",
   "attributes": [
     { "name": "inputVars", "value": "{\"number1\":2,\"number2\":30}" },
-    { "name": "javascript", "value": "number1 + number2;" }
+    { "name": "outputVars", "value": "sum" }
+    { "name": "javascript", "value": "sum = number1 + number2;" };
   ]
 }
 ```

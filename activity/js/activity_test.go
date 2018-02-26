@@ -89,10 +89,8 @@ func TestEval_OutputVars(t *testing.T) {
 	//Set JS code
 	tc.SetInput(ivJs, `sum = n1 + n2; result = "Sum is " + sum;`)
 
-	//Set expected output variables
-	outputVars := make(map[string]interface{}, 2)
-	outputVars["sum"] = 0
-	outputVars["result"] = ""
+	//Set expected output variable
+	outputVars := "sum,result"
 	tc.SetInput(ivOutputVars, outputVars)
 
 	success, err := act.Eval(tc)
@@ -122,9 +120,7 @@ func TestEval_OutputVars_NotSet(t *testing.T) {
 	tc.SetInput(ivInputVars, inputVar)
 
 	// Set expected output variables
-	outputVars := make(map[string]interface{}, 2)
-	outputVars["sum"] = 0
-	outputVars["result"] = ""
+	outputVars := "sum,result"
 	tc.SetInput(ivOutputVars, outputVars)
 
 	// Set JS code

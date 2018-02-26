@@ -6,6 +6,7 @@ import (
 	"github.com/TIBCOSoftware/flogo-lib/core/activity"
 	"github.com/TIBCOSoftware/flogo-lib/logger"
 	"github.com/robertkrimen/otto"
+	"strings"
 )
 
 var activityLog = logger.GetLogger("activity-vijay-js")
@@ -52,17 +53,17 @@ func (a *JSActivity) Eval(context activity.Context) (done bool, err error) {
 		return false, activity.NewError(fmt.Sprintf("Failed to execute JavaScript code due to error: %s", err.Error()), "", nil)
 	}
 
-	outputVars, ok := context.GetInput(ivOutputVars).(map[string]interface{})
+	outputVars, ok := context.GetInput(ivOutputVars).(string)
 	if ok && len(outputVars) > 0 {
 		//Specific variables
 		result := make(map[string]interface{}, len(outputVars))
-		for k := range outputVars {
-			value, err := vm.Get(k)
+		for _, v := range strings.Split(outputVars, ",") {
+			value, err := vm.Get(v)
 			if err != nil || value.IsUndefined() {
-				return false, activity.NewError(fmt.Sprintf("Variable:%s is not set in the java script", k), "", nil)
+				return false, activity.NewError(fmt.Sprintf("Variable:%s is not set in the java script", v), "", nil)
 			}
 			goVal, _ := value.Export()
-			result[k] = goVal
+			result[v] = goVal
 		}
 		context.SetOutput(ovOutput, result)
 	} else {

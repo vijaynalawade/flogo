@@ -13,7 +13,7 @@
     },
     {
       "name": "outputVars",
-      "type": "object"
+      "type": "string"
     },
     {
       "name": "javascript",
