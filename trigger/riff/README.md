@@ -1,8 +1,6 @@
+
 ---
-title: Lambda
-weight: 4704
----
-# tibco-lambda
+# trigger-riff
 This trigger provides your flogo application the ability to start a flow as a Project Riff function
 
 ## Installation
