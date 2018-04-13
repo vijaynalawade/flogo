@@ -1,0 +1,24 @@
+{
+  "name": "flogo-vijay-riff",
+  "type": "flogo:trigger",
+  "shim": "plugin",
+  "ref": "github.com/vijaynalawade/flogo/trigger/riff",
+  "version": "0.0.1",
+  "title": "Start Flow as a function in Project Riff",
+  "description": "Simple Riff Trigger",
+  "homepage": "https://github.com/vijaynalawade/flogo/tree/master/trigger/riff",
+  "settings": [
+  ],
+  "output": [
+    {
+      "name": "input",
+      "type": "any"
+    }
+  ],
+  "reply": [
+    {
+      "name": "output",
+      "type": "any"
+    }
+  ]
+}
