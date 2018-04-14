@@ -20,7 +20,7 @@ func main() {
 	// lambda this would be <path>/lambda/src/lambda
 	appDir := os.Args[1]
 
-	appName := path.Dir(appDir)
+	_, appName := path.Split(appDir)
 
 	// Clean up
 	fmt.Println("Cleaning up previous executables")
@@ -40,7 +40,7 @@ func main() {
 	}
 
 	// Build an executable for Linux
-	fmt.Printf("Building a new GO Plugin - %s.so", appName)
+	fmt.Println(fmt.Sprintf("Building a new GO Plugin - %s.so", appName))
 	cmd = exec.Command("go", "build", "-buildmode=plugin", "-o", appName+".so")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
