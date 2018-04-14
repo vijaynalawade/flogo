@@ -13,5 +13,8 @@ func Invoke(input interface{}) (interface{}, error) {
 	return result, nil
 }
 
+func main()  {
+	
+}
 
 
