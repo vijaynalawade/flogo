@@ -40,7 +40,7 @@ func main() {
 	}
 
 	// Build an executable for Linux
-	fmt.Printlnf("Building a new GO Plugin - %s.so", appName)
+	fmt.Printf("Building a new GO Plugin - %s.so", appName)
 	cmd = exec.Command("go", "build", "-buildmode=plugin", "-o", appName+".so")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
