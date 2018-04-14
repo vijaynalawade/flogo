@@ -79,6 +79,9 @@ func Invoke(input interface{}) (interface{}, error) {
 		return nil, err
 	}
 
+	log.Debugf("Reply: '%+v'\n", replyData)
+	syslog.Printf("Reply: '%+v'\n", replyData)
+
 	return replyData, err
 }
 
