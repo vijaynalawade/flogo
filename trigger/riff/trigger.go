@@ -9,6 +9,7 @@ import (
 
 	// Import the aws-lambda-go. Required for dep to pull on app create
 	_ "github.com/aws/aws-lambda-go/lambda"
+	"github.com/TIBCOSoftware/flogo-lib/core/data"
 )
 
 // log is the default package logger
@@ -59,11 +60,11 @@ func Invoke(input interface{}) (interface{}, error) {
 	//select handler, use 0th for now
 	handler := singleton.handlers[0]
 
-	data := map[string]interface{}{
+	idata := map[string]interface{}{
 		"input": input,
 	}
 
-	results, err := handler.Handle(context.Background(), data)
+	results, err := handler.Handle(context.Background(), idata)
 
 	var replyData interface{}
 
@@ -80,10 +81,13 @@ func Invoke(input interface{}) (interface{}, error) {
 		return nil, err
 	}
 
-	log.Debugf("Reply: '%+v'\n", replyData)
-	syslog.Printf("Reply: '%+v'\n", replyData)
+	log.Debugf("Riff Trigger Reply: '%+v'\n", replyData)
+	syslog.Printf("Riff Trigger Reply: '%+v'\n", replyData)
 
-	return replyData, err
+	//Workaround
+	strigifyData, _ := data.CoerceToString(replyData)
+
+	return  strigifyData, err
 }
 
 func (t *RiffTrigger) Start() error {
