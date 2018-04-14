@@ -40,12 +40,14 @@ func main() {
 	}
 
 	// Build an executable for Linux
-	fmt.Println("Building a new handler file")
+	fmt.Printlnf("Building a new GO Plugin - %s.so", appName)
 	cmd = exec.Command("go", "build", "-buildmode=plugin", "-o", appName+".so")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Dir = appDir
-	cmd.Env = append(os.Environ(), fmt.Sprintf("GOPATH=%s", filepath.Join(appDir, "..", "..")), "GOOS=linux")
+	filePath := filepath.Join(appDir, "..", "..")
+	fmt.Println(fmt.Sprintf("GO PATH - %s", filePath))
+	cmd.Env = append(os.Environ(), fmt.Sprintf("GOPATH=%s", filePath), "GOOS=linux")
 
 	err = cmd.Run()
 	if err != nil {
