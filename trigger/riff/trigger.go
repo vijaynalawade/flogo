@@ -76,6 +76,7 @@ func Invoke(input interface{}) (interface{}, error) {
 
 	if err != nil {
 		log.Debugf("Riff Trigger Error: %s", err.Error())
+		syslog.Printf("Riff Trigger Error: %s", err.Error())
 		return nil, err
 	}
 
