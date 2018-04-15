@@ -23,7 +23,7 @@ func main() {
 	_, appName := path.Split(appDir)
 
 	// Clean up
-	fmt.Println("Cleaning up previous executables")
+	fmt.Println("Cleaning up previous plugin")
 	if runtime.GOOS == "windows" {
 		cmd = exec.Command("cmd", "/C", "del", "/q", appName+".so")
 	} else {
@@ -41,7 +41,7 @@ func main() {
 
 	// Build an executable for Linux
 	fmt.Println(fmt.Sprintf("Building a new GO Plugin - %s.so", appName))
-	cmd = exec.Command("go", "build", "-buildmode=plugin", "-o", appName+".so")
+	cmd = exec.Command("go", "build", "-ldflags=\"-s -w\"", "-buildmode=plugin", "-o", appName+".so")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Dir = appDir
