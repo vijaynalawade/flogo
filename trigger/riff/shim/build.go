@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"runtime"
 	"path/filepath"
+	"path"
 )
 
 func main() {
