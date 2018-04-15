@@ -40,7 +40,6 @@ func main() {
 
 	filePath := filepath.Join(appDir, "..", "..")
 	fmt.Println(fmt.Sprintf("GO PATH - %s", filePath))
-	cmd.Env = append(os.Environ(), fmt.Sprintf("GOPATH=%s", filePath), "GOOS=linux")
 
 	// Build an executable for Linux
 	fmt.Println(fmt.Sprintf("Building a new GO Plugin - %s.so", appName))
@@ -48,7 +47,8 @@ func main() {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Dir = appDir
-	
+	cmd.Env = append(os.Environ(), fmt.Sprintf("GOPATH=%s", filePath), "GOOS=linux")
+
 	err = cmd.Run()
 	if err != nil {
 		fmt.Printf(err.Error())
