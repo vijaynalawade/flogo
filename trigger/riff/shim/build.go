@@ -7,7 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
-	"path"
+	"path/filepath"
 )
 
 func main() {
