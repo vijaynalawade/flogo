@@ -41,7 +41,7 @@ func main() {
 
 	// Build an executable for Linux
 	fmt.Println(fmt.Sprintf("Building a new GO Plugin - %s.so", appName))
-	cmd = exec.Command("go", "build", "-ldflags=-s -w", "-buildmode=plugin", "-o", appName+".so")
+	cmd = exec.Command("go", "build", "-ldflags=-s -w", "-buildmode=plugin")
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Dir = appDir
